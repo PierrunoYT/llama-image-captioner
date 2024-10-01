@@ -5,7 +5,8 @@ This Python application leverages the OpenRouter API and the Meta-Llama model to
 ## Features
 
 - User-friendly Gradio interface for image uploads
-- Detailed, accurate, and concise image descriptions
+- Option to generate short or long image descriptions
+- Detailed, accurate, and concise image captions
 - Powered by the advanced Meta-Llama 3.2 90B Vision Instruct model
 - Robust error handling and logging for improved debugging
 
@@ -60,7 +61,12 @@ To run the application:
 python ImageCaption.py
 ```
 
-This will launch the Gradio interface. You can then upload an image, and the app will generate a detailed description of it.
+This will launch the Gradio interface. Follow these steps:
+
+1. Upload an image using the provided interface.
+2. Choose the caption length: "Short" for a brief description or "Long" for a detailed analysis.
+3. Click the submit button to generate the image caption.
+4. The app will display the generated description based on your chosen length.
 
 ## How It Works
 

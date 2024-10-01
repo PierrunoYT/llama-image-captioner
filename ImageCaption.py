@@ -40,7 +40,7 @@ def make_api_request(payload: Dict[str, Any]) -> Dict[str, Any]:
         logger.error(f"Error making request: {str(e)}")
         raise
 
-def caption_image(image: str) -> str:
+def caption_image(image: str, caption_length: str) -> str:
     """Generate a caption for the given image."""
     try:
         # Convert image to base64
@@ -49,19 +49,29 @@ def caption_image(image: str) -> str:
         
         image_url = f"data:image/jpeg;base64,{encoded_string}"
 
+        system_message = "You are an advanced AI capable of analyzing images. "
+        user_message = ""
+
+        if caption_length == "Short":
+            system_message += "Your task is to provide brief, concise descriptions of the images presented to you. Focus on the main elements and overall composition in a sentence or two."
+            user_message = "Please describe this image briefly."
+        else:  # Long caption
+            system_message += "Your task is to provide detailed, accurate, and comprehensive descriptions of the images presented to you. Focus on the main elements, colors, actions, overall composition, and any notable or unusual aspects."
+            user_message = "Please describe this image in detail."
+
         payload = {
             "model": MODEL_NAME,
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are an advanced AI capable of analyzing images. Your task is to provide detailed, accurate, and concise descriptions of the images presented to you. Focus on the main elements, colors, actions, and overall composition. If there are any notable or unusual aspects, mention those as well."
+                    "content": system_message
                 },
                 {
                     "role": "user",
                     "content": [
                         {
                             "type": "text",
-                            "text": "Please describe this image in detail."
+                            "text": user_message
                         },
                         {
                             "type": "image_url",
@@ -93,10 +103,13 @@ def caption_image(image: str) -> str:
 # Create Gradio interface
 iface = gr.Interface(
     fn=caption_image,
-    inputs=gr.Image(type="filepath"),
+    inputs=[
+        gr.Image(type="filepath", label="Upload Image"),
+        gr.Radio(["Short", "Long"], label="Caption Length", value="Long")
+    ],
     outputs="text",
-    title="Detailed Image Captioning",
-    description="Upload an image to get a detailed description."
+    title="Image Captioning",
+    description="Upload an image and choose caption length to get a description."
 )
 
 # Launch the app
