@@ -85,6 +85,8 @@ Contributions to this project are welcome! Please follow these steps:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+Copyright (c) 2024 PierrunoYT
+
 ## Acknowledgments
 
 - OpenRouter for providing the API
