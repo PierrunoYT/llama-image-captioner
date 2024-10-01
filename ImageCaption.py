@@ -67,6 +67,21 @@ def caption_image(image: str, caption_type: str) -> str:
         elif caption_type == "SEO-friendly":
             system_message += "Your task is to provide an SEO-friendly description of the images presented to you. Focus on relevant keywords, clear and concise language, and include details that might be valuable for search engine optimization."
             user_message = "Please provide an SEO-friendly description of this image."
+        elif caption_type == "Emotional":
+            system_message += "Your task is to describe the emotional impact and mood of the images presented to you. Focus on the feelings, atmosphere, and emotional responses the image might evoke."
+            user_message = "Please describe the emotional impact and mood of this image."
+        elif caption_type == "Historical":
+            system_message += "Your task is to analyze the images from a historical perspective. Consider potential time periods, historical significance, and any elements that might place the image in a historical context."
+            user_message = "Please provide a historical analysis of this image."
+        elif caption_type == "Artistic":
+            system_message += "Your task is to analyze the images from an artistic perspective. Focus on artistic techniques, style, composition, use of color, and potential artistic influences or movements represented."
+            user_message = "Please provide an artistic analysis of this image."
+        elif caption_type == "Scientific":
+            system_message += "Your task is to analyze the images from a scientific perspective. Focus on any scientific concepts, phenomena, or principles that might be represented or relevant to the image content."
+            user_message = "Please provide a scientific analysis of this image."
+        elif caption_type == "Cultural":
+            system_message += "Your task is to analyze the images from a cultural perspective. Consider cultural symbols, traditions, practices, or significance represented in the image."
+            user_message = "Please provide a cultural analysis of this image."
 
         payload = {
             "model": MODEL_NAME,
@@ -114,7 +129,7 @@ iface = gr.Interface(
     fn=caption_image,
     inputs=[
         gr.Image(type="filepath", label="Upload Image"),
-        gr.Radio(["Short", "Long", "Technical", "Creative", "SEO-friendly"], label="Caption Type", value="Long")
+        gr.Radio(["Short", "Long", "Technical", "Creative", "SEO-friendly", "Emotional", "Historical", "Artistic", "Scientific", "Cultural"], label="Caption Type", value="Long")
     ],
     outputs="text",
     title="Image Captioning",
