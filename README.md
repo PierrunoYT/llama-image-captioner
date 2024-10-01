@@ -21,7 +21,7 @@ Before getting started, make sure you have:
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/llama-image-captioner.git
+   git clone https://github.com/PierrunYT/llama-image-captioner.git
    cd llama-image-captioner
    ```
 
@@ -91,8 +91,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Meta for the Llama model
 - Gradio for the user-friendly interface building tools
 
-## Contact
+## Project Link
 
-Your Name - [@your_twitter](https://twitter.com/your_twitter) - email@example.com
-
-Project Link: [https://github.com/yourusername/llama-image-captioner](https://github.com/yourusername/llama-image-captioner)
+[https://github.com/PierrunYT/llama-image-captioner](https://github.com/PierrunYT/llama-image-captioner)
