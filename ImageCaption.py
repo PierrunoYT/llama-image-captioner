@@ -40,8 +40,8 @@ def make_api_request(payload: Dict[str, Any]) -> Dict[str, Any]:
         logger.error(f"Error making request: {str(e)}")
         raise
 
-def caption_image(image: str, caption_length: str) -> str:
-    """Generate a caption for the given image."""
+def caption_image(image: str, caption_type: str) -> str:
+    """Generate a caption for the given image based on the selected type."""
     try:
         # Convert image to base64
         with open(image, "rb") as image_file:
@@ -52,12 +52,21 @@ def caption_image(image: str, caption_length: str) -> str:
         system_message = "You are an advanced AI capable of analyzing images. "
         user_message = ""
 
-        if caption_length == "Short":
+        if caption_type == "Short":
             system_message += "Your task is to provide brief, concise descriptions of the images presented to you. Focus on the main elements and overall composition in a sentence or two."
             user_message = "Please describe this image briefly."
-        else:  # Long caption
+        elif caption_type == "Long":
             system_message += "Your task is to provide detailed, accurate, and comprehensive descriptions of the images presented to you. Focus on the main elements, colors, actions, overall composition, and any notable or unusual aspects."
             user_message = "Please describe this image in detail."
+        elif caption_type == "Technical":
+            system_message += "Your task is to provide a technical analysis of the images presented to you. Focus on technical aspects such as image quality, composition techniques, lighting, and any relevant technical details about the subject matter."
+            user_message = "Please provide a technical analysis of this image."
+        elif caption_type == "Creative":
+            system_message += "Your task is to provide a creative and imaginative description of the images presented to you. Feel free to use metaphors, similes, and vivid language to paint a picture with words."
+            user_message = "Please describe this image creatively and imaginatively."
+        elif caption_type == "SEO-friendly":
+            system_message += "Your task is to provide an SEO-friendly description of the images presented to you. Focus on relevant keywords, clear and concise language, and include details that might be valuable for search engine optimization."
+            user_message = "Please provide an SEO-friendly description of this image."
 
         payload = {
             "model": MODEL_NAME,
@@ -105,11 +114,11 @@ iface = gr.Interface(
     fn=caption_image,
     inputs=[
         gr.Image(type="filepath", label="Upload Image"),
-        gr.Radio(["Short", "Long"], label="Caption Length", value="Long")
+        gr.Radio(["Short", "Long", "Technical", "Creative", "SEO-friendly"], label="Caption Type", value="Long")
     ],
     outputs="text",
     title="Image Captioning",
-    description="Upload an image and choose caption length to get a description."
+    description="Upload an image and choose a caption type to get a description."
 )
 
 # Launch the app
